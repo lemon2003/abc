@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐴 父子骑驴的寓言之旅</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2B48C;
+            --accent-color: #FF6B6B;
+            --text-color: #3E2723;
+            --light-bg: #FFF8E1;
+        }
+        
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Noto Serif SC', serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #F5F5DC 0%, #FFF8E1 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+        
+        /* 动态标题效果 */
+        header {
+            background: url('https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg') center/cover;
+            color: var(--primary-color);
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 8px solid var(--primary-color);
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.7);
+            z-index: 1;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 3.5rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: fadeInDown 1s;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-top: 1rem;
+            animation: fadeInUp 1s 0.3s both;
+        }
+        
+        /* 滚动装饰元素 */
+        .decorative-donkey {
+            position: absolute;
+            font-size: 3rem;
+            color: var(--primary-color);
+            opacity: 0.3;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        .donkey1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .donkey2 { top: 30%; right: 5%; animation-delay: 2s; }
+        .donkey3 { bottom: 10%; left: 20%; animation-delay: 4s; }
+        
+        /* 主要内容容器 */
+        .main-container {
+            max-width: 900px;
+            margin: -3rem auto 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 3;
+        }
+        
+        /* 故事插画与文字交替布局 */
+        .story-section {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 3rem 0;
+            gap: 2rem;
+        }
+        
+        .story-text {
+            flex: 1;
+            min-width: 300px;
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+        }
+        
+        .story-image {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+            animation: float 4s infinite ease-in-out;
+        }
+        
+        .story-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.5s;
+        }
+        
+        .story-image:hover img {
+            transform: scale(1.03);
+        }
+        
+        /* 角色卡片 */
+        .characters-section {
+            background: var(--secondary-color);
+            padding: 2rem;
+            margin: 3rem 0;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .character-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .character-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .character-avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+        
+        .character-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .character-name {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 1rem 0 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .character-desc {
+            font-size: 0.9rem;
+            color: #666;
+            min-height: 60px;
+        }
+        
+        /* 道德启示卡片 */
+        .moral-card {
+            background: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            margin: 3rem 0;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .moral-card::before {
+            content: "💡";
+            position: absolute;
+            font-size: 5rem;
+            opacity: 0.1;
+            top: -20px;
+            right: 20px;
+            transform: rotate(15deg);
+        }
+        
+        .moral-card h3 {
+            color: white;
+            margin-top: 0;
+            font-size: 1.8rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .moral-card p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* 现代启示部分 */
+        .modern-insights {
+            background: url('https://img.freepik.com/free-vector/abstract-modern-geometric-background_52683-80748.jpg') center/cover;
+            color: white;
+            padding: 3rem;
+            margin: 3rem 0;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .modern-insights::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(59, 29, 0, 0.85);
+            z-index: 1;
+        }
+        
+        .insights-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .insights-content h2 {
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .insight-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .insight-item {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-color);
+            transition: all 0.3s;
+        }
+        
+        .insight-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+        
+        .insight-item i {
+            color: var(--accent-color);
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        .social-icons {
+            margin: 1rem 0;
+        }
+        
+        .social-icons a {
+            color: white;
+            margin: 0 0.5rem;
+            font-size: 1.5rem;
+            transition: transform 0.2s;
+        }
+        
+        .social-icons a:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .story-section { flex-direction: column; }
+            .modern-insights { padding: 2rem 1rem; }
+        }
+        
+        .video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* 使容器占据整个视口高度 */
+            margin: 2px;
+            box-sizing: border-box; /* 确保边框包含在总宽度内 */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="decorative-donkey donkey1">🐴</div>
+        <div class="decorative-donkey donkey2">🦄</div>
+        <div class="decorative-donkey donkey3">🐎</div>
+        
+        <div class="header-content">
+            <h1>父子骑驴的寓言之旅</h1>
+            <p class="subtitle">一则关于主见与外界评价的东方智慧</p>
+        </div>
+    </header>
+    <div class="video-container">
+    	<video controls width="600">
+	    	<source src="img/a.mp4" type="video/mp4">
+		</video>
+    </div>
+    <div class="main-container">
+        <!-- 故事第一部分 -->
+        <div class="story-section">
+            <div class="story-text">
+                <h2>第一章：初遇非议</h2>
+                <p>烈日炎炎的午后，一对父子牵着瘦弱的驴子走在乡间小路上。父亲布满老茧的手握着缰绳，儿子背着简单的行囊跟在后面。这时，迎面走来几个挑担的农夫，其中一人指着他们笑道："这年头真稀奇，有驴不骑偏走路，莫不是傻子？"父亲闻言一怔，手心沁出细汗。</p>
+            </div>
+            <div class="story-image">
+                <img src="img/2.png" alt="父子初遇路人">
+            </div>
+        </div>
+        
+        <!-- 故事第二部分 -->
+        <div class="story-section" style="flex-direction: row-reverse;">
+            <div class="story-text">
+                <h2>第二章：角色反转</h2>
+                <p>父亲咬咬牙，将儿子抱上驴背。没走多远，又遇见一群妇孺。其中一位老妪颤巍巍地指着他们："这般狠心的爹，自己走路却让孩子受罪！"父亲的脸瞬间涨得通红，慌忙将儿子拽下驴背，自己翻身骑了上去。驴子发出不安的嘶鸣，四蹄在沙地上刨出浅坑。</p>
+            </div>
+            <div class="story-image">
+                <img src="img/3.png" alt="父亲骑驴">
+            </div>
+        </div>
+        
+        <!-- 故事第三部分 -->
+        <div class="story-section">
+            <div class="story-text">
+                <h2>第三章：双骑之祸</h2>
+                <p>当两人共乘驴背时，驴子膝盖打颤，嘴角泛起白沫。恰逢书生模样的路人经过，摇头叹道："此等虐畜之举，简直有违天道！"话音未落，驴子轰然倒地，扬起一片黄尘。父子俩呆立当场，行囊散落一地，远处传来乌鸦聒噪的叫声。</p>
+            </div>
+            <div class="story-image">
+                <img src="img/5.png" alt="驴子倒地">
+            </div>
+        </div>
+        
+        <!-- 角色卡片 -->
+        <section class="characters-section">
+            <h2><i class="fas fa-users"></i> 故事角色</h2>
+            <div class="characters-grid">
+                <div class="character-card">
+                    <div class="character-avatar">
+                        <img src="img/6.png" alt="父亲">
+                    </div>
+                    <div class="character-name">父亲</div>
+                    <div class="character-desc">
+                        传统农人，将他人眼光视为行为准则，在善意批评中逐渐迷失自我判断。
+                    </div>
+                    <div class="character-quote">
+                        "大家说得都有理，我该如何是好？"
+                    </div>
+                </div>
+                
+                <div class="character-card">
+                    <div class="character-avatar">
+                        <img src="img/7.png" alt="儿子">
+                    </div>
+                    <div class="character-name">儿子</div>
+                    <div class="character-desc">
+                        纯真少年，缺乏独立判断力，被动接受父亲安排，在角色转换中无所适从。
+                    </div>
+                    <div class="character-quote">
+                        "爹，我们到底该怎么做？"
+                    </div>
+                </div>
+                
+                <div class="character-card">
+                    <div class="character-avatar">
+                        <img src="img/8.png" alt="驴子">
+                    </div>
+                    <div class="character-name">驴子</div>
+                    <div class="character-desc">
+                        无辜的承受者，象征被外界声音左右的个体，最终在矛盾指令中不堪重负。
+                    </div>
+                    <div class="character-quote">
+                        "我究竟该驮谁？"
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 道德启示 -->
+        <div class="moral-card">
+            <h3>故事背后的生存智慧</h3>
+            <p>这则诞生于农耕时代的寓言，在数字时代焕发出新的启示：当我们被社交媒体的点赞数、朋友圈的评论、同事的"建议"裹挟时，是否还记得内心真正的需求？真正的智慧不在于取悦所有人，而在于建立清晰的价值坐标系，在纷扰中守护内心的定海神针。</p>
+        </div>
+        
+        <!-- 现代启示 -->
+        <section class="modern-insights">
+            <div class="insights-content">
+                <h2><i class="fas fa-lightbulb"></i> 现代生存启示录</h2>
+                <div class="insight-list">
+                    <div class="insight-item">
+                        <i class="fas fa-brain"></i>
+                        <strong>培养批判性思维</strong> - 建立自己的价值判断标准，不盲目跟从"政治正确"
+                    </div>
+                    <div class="insight-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <strong>设立心理边界</strong> - 区分建设性意见与情绪化评价，对PUA式批评说"不"
+                    </div>
+                    <div class="insight-item">
+                        <i class="fas fa-balance-scale"></i>
+                        <strong>掌握平衡艺术</strong> - 在保持本真与适应环境间找到动态平衡点
+                    </div>
+                    <div class="insight-item">
+                        <i class="fas fa-seedling"></i>
+                        <strong>培育内在力量</strong> - 通过持续学习建立专业自信，让实力成为最好的保护色
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-weixin"></i></a>
+            <a href="#"><i class="fab fa-weibo"></i></a>
+            <a href="#"><i class="fab fa-qq"></i></a>
+        </div>
+        <p>© lemon | 经典寓言新解</p>
+        <p>设计灵感源自《百喻经》与现代心理学</p>
+    </footer>
+</body>
+</html>
